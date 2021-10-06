@@ -5,19 +5,24 @@ var dance_combo = []
 var arrow_spacing = 75
 var combo_size = 4
 
+
+var is_complete = false
+
 func _ready():
 	get_random_combo(combo_size)
 	draw_arrows()
+	
+
 
 
 
 
 func update_arrows(input: Array):
-
 	var comboing = true
 	var color
 	for i in range(dance_combo.size()):
 		if i >= input.size():
+			comboing = false
 			color = Color(1, 1, 1)
 		else:
 			if input[i] == dance_combo[i] && comboing:
@@ -27,6 +32,8 @@ func update_arrows(input: Array):
 				color = Color(0, 0, 0)
 		
 		$Arrows.get_children()[i].modulate = color
+		
+	is_complete = comboing
 
 func get_random_combo(length: int):
 	randomize()
@@ -44,4 +51,6 @@ func draw_arrows():
 		arrow.position.x = x
 		$Arrows.add_child(arrow)
 		x += arrow_spacing
+
+
 

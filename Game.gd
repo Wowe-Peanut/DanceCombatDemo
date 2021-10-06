@@ -3,12 +3,15 @@ extends Node2D
 onready var dance_prefab = load("res://Objects/Dance.tscn")
 
 var player_input = []
+var max_dance_combo = 0
+var dancing = true
 
 func _ready():
 	$Player.position = $PlayerSpawn.position
 	
 	
 	generate_dances(3)
+	get_max_dance_size()
 	position_dances()
 
 func generate_dances(count: int):
@@ -23,13 +26,17 @@ func get_max_dance_size():
 	for d in $DanceList.get_children():
 		max_combo = d.combo_size if max_combo < d.combo_size else max_combo
 		
-	return max_combo
+	max_dance_combo = max_combo
 
 func _input(event):
-	if player_input.size() > get_max_dance_size():
+	if player_input.size() > max_dance_combo || !dancing:
 		player_input.clear()
+		dancing = true
 		update_dances()
 		return
+		
+	if is_any_dance_completed():
+		dancing = false
 	
 	if Input.is_action_just_pressed("ui_right"):
 		player_input.append(0)
@@ -41,6 +48,13 @@ func _input(event):
 		player_input.append(3)
 		
 	update_dances()
+
+func is_any_dance_completed():
+	for d in $DanceList.get_children():
+		if d.is_complete:
+			return true
+	return false		
+	
 
 func update_dances():
 	for d in $DanceList.get_children():
