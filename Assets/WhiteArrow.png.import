@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/9348463-0-arrow1-1.png-9ad67d9002b0a37a65de6825c2c92755.stex"
+path="res://.import/WhiteArrow.png-81b3998344192dc17605ed32225035fd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/9348463-0-arrow1-1.png"
-dest_files=[ "res://.import/9348463-0-arrow1-1.png-9ad67d9002b0a37a65de6825c2c92755.stex" ]
+source_file="res://Assets/WhiteArrow.png"
+dest_files=[ "res://.import/WhiteArrow.png-81b3998344192dc17605ed32225035fd.stex" ]
 
 [params]
 

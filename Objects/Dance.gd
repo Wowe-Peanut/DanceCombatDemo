@@ -11,11 +11,6 @@ var is_complete = false
 func _ready():
 	get_random_combo(combo_size)
 	draw_arrows()
-	
-
-
-
-
 
 func update_arrows(input: Array):
 	var comboing = true

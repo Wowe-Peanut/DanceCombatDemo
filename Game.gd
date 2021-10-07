@@ -1,6 +1,7 @@
 extends Node2D
 
 onready var dance_prefab = load("res://Objects/Dance.tscn")
+onready var projectile_prefab = load("res://Objects/DanceProjectile.tscn")
 
 var player_input = []
 var max_dance_combo = 0
@@ -41,9 +42,6 @@ func _input(event):
 	elif Input.is_action_just_pressed("ui_down"):
 		player_input.append(3)
 		update_dances()
-	
-	
-	
 
 func update_dances():
 	if player_input.size() > max_dance_combo || not dancing:
@@ -55,7 +53,14 @@ func update_dances():
 			print(str(d.dance_combo))
 			dancing = false
 			d.highlight_arrows()
-			
+			boogie(d)
+
+func boogie(dance):
+	var projectile = projectile_prefab.instance()
+	projectile.position = $Player.position
+	projectile.velocity = Vector2(1000, 0)
+	add_child(projectile)
+
 func clear_input():
 	dancing = true
 	player_input = []
