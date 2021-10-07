@@ -29,37 +29,38 @@ func get_max_dance_size():
 	max_dance_combo = max_combo
 
 func _input(event):
-	if player_input.size() > max_dance_combo || !dancing:
-		player_input.clear()
-		dancing = true
-		update_dances()
-		return
-		
-	if is_any_dance_completed():
-		dancing = false
-	
 	if Input.is_action_just_pressed("ui_right"):
 		player_input.append(0)
+		update_dances()
 	elif Input.is_action_just_pressed("ui_up"):
 		player_input.append(1)
+		update_dances()
 	elif Input.is_action_just_pressed("ui_left"):
 		player_input.append(2)
+		update_dances()
 	elif Input.is_action_just_pressed("ui_down"):
 		player_input.append(3)
-		
-	update_dances()
-
-func is_any_dance_completed():
-	for d in $DanceList.get_children():
-		if d.is_complete:
-			return true
-	return false		
+		update_dances()
+	
+	
 	
 
 func update_dances():
+	if player_input.size() > max_dance_combo || not dancing:
+		clear_input()
+	
 	for d in $DanceList.get_children():
 		d.update_arrows(player_input)
-		
+		if d.is_complete:
+			print(str(d.dance_combo))
+			dancing = false
+			d.highlight_arrows()
+			
+func clear_input():
+	dancing = true
+	player_input = []
+	update_dances()
+
 func _on_WorldBounds_body_entered(body):
 	if body.name == "Player":
 		body.position = $PlayerSpawn.position

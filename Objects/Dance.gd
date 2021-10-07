@@ -52,5 +52,7 @@ func draw_arrows():
 		$Arrows.add_child(arrow)
 		x += arrow_spacing
 
-
+func highlight_arrows():
+	for a in $Arrows.get_children():
+		a.modulate = Color(0, 1, 0)
 
